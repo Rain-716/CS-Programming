@@ -1,40 +1,61 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 using namespace std;
+vector<int> prime;
+struct point{int m,n;};
 int num(int n)
 {
     int count=0;
-    if (n==1) return 0;
-    for (int i=2;i<=n&&n>1;i++){
-        if (!(n%i)){
+    if (n<4) return 0;
+    for (int i=0;prime[i]<=n&&n>1;i++){
+        if (!(n%prime[i])){
             count++;
-            while (!(n%i)){
-                n/=i;
+            while (!(n%prime[i])){
+                n/=prime[i];
             }
         }
     }
     return count;
 }
-bool cmp(const int a1,const int a2)
+bool cmp(const point a1,const point a2)
 {
-    if (num(a1)!=num(a2)){
-        return num(a1)>num(a2);
+    if (a1.n!=a2.n){
+        return a1.n>a2.n;
     }
-    return a1>a2;
+    return a1.m>a2.m;
 }
 int main()
 {
-    int n;
+    int n,i,j;
     cin>>n;
-    vector<int> a(n);
-    for (int i=0;i<n;i++){
-        cin>>a[i];
+    vector<point> a(n);
+    for (i=0;i<n;i++){
+        cin>>a[i].m;
+    }
+    int max=a[0].m;
+	for (i=0;i<n;i++){
+		if (a[i].m>max){
+		   max=a[i].m;
+        }
+    }
+    prime={2,3,};
+    for (i=3;i<=max;i++){
+        for (j=0;j<prime.size()&&prime[j]*prime[j]<=i;j++){
+            if (!(i%prime[j])){
+                break;
+            }
+        }
+        if (i%prime[j]){
+            prime.push_back(i);
+        }
+    }
+    for (i=0;i<n;i++){
+        a[i].n=num(a[i].m);
     }
     sort(a.begin(),a.end(),cmp);
-    for (int i=0;i<n;i++){
-        cout<<a[i]<<" ";
+    for (i=0;i<n;i++){
+        cout<<a[i].m<<" ";
     }
     return 0;
 }
