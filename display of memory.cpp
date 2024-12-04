@@ -31,6 +31,7 @@ int main()
                 cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
             }
         }
+        cout<<endl;
     }
     return 0;
 }
