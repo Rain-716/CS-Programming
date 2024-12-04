@@ -7,28 +7,29 @@ using namespace std;
 int main()
 {
     string s;
-    bool b=0;
-    cin>>s;
-    for (int i=0;s[i]!='\0';i++){
-        if (s[i]=='.'){
-            b=1;
-            break;
+    while (cin>>s){
+        bool b=0;
+        for (int i=0;s[i]!='\0';i++){
+            if (s[i]=='.'){
+                b=1;
+                break;
+            }
         }
-    }
-    if (!b){
-        int a=stoi(s);
-        int* ap=&a;
-        char* cp=(char*)ap;
-        for (int i=0;i<4;i++){
-            cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
+        if (!b){
+            int a=stoi(s);
+            int* ap=&a;
+            char* cp=(char*)ap;
+            for (int i=0;i<4;i++){
+                cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
+            }
         }
-    }
-    else {
-        double a=stod(s);
-        double* ap=&a;
-        char* cp=(char*)ap;
-        for (int i=0;i<8;i++){
-            cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
+        else {
+            double a=stod(s);
+            double* ap=&a;
+            char* cp=(char*)ap;
+            for (int i=0;i<8;i++){
+                cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
+            }
         }
     }
     return 0;
