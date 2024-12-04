@@ -18,7 +18,7 @@ int main()
         if (!b){
             int a=stoi(s);
             int* ap=&a;
-            char* cp=(char*)ap;
+            unsigned char* cp=(unsigned char*)ap;
             for (int i=0;i<4;i++){
                 cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
             }
@@ -26,7 +26,7 @@ int main()
         else {
             double a=stod(s);
             double* ap=&a;
-            char* cp=(char*)ap;
+            unsigned char* cp=(unsigned char*)ap;
             for (int i=0;i<8;i++){
                 cout<<hex<<setw(2)<<setfill('0')<<(int)*(cp+i)<<" ";
             }
