@@ -6,8 +6,9 @@
 上述范围均包含两端点。整数的前导零可以忽略，如果分成的其中一部分中没有任何数字，该部分视为0。*/
 #include <iostream>
 #include <vector>
-#include <cstring>
+#include <algorithm>
 using namespace std;
+vector <char> s;
 int count(int a)
 {
     int count=0;
@@ -15,49 +16,47 @@ int count(int a)
         if (a&1){
             count++;
         }
-        a>>1;
+        a>>=1;
     }
     return count;
 }
-string itob(int n)
+void itob(int n)
 {
-	string s;
+    int i=0;
     while (n){
-        s=(n% 2 ? "1" : "0")+s;
+        int t= n%2 ? '1' : '0';
+        s.push_back(t);
+        n/=2;
     }
-    return s;
+    reverse(s.begin(),s.end());
 }
-int count1(string s,int x,bool d)
+int count1(vector <char> &s,int x)
 {
     int count=0,i;
-    if (!d){
-        for (i=0;count!=x;i++){
-            if (s[i]=='1'){
-                count++;
-            }
+    for (i=0;(count<x)&&(i<s.size());i++){
+        if (s[i]=='1'){
+            count++;
         }
-        return i;
     }
-    else {
-        for (i=s.size();count!=x;i--){
-            if (s[i]=='1'){
-                count++;
-            }
-        }
-        return i+1;
-    }
+    return i+1;
 }
 int score(int a)
 {
     if (a<=1) return a;
     else {
         int num=count(a);
-        string s=itob(a);
-        if (!(num/2)){
-            return a+score(a>>(s.size()-count1(s,num/2,0)))+score(a%(1<<(s.size()+1-count1(s,num/2,1))));
+        itob(a);
+        int length=s.size();
+        if (!(num%2)){
+            int x1=count1(s,num/2),x2=x1;
+            while (s[x2]='0'){
+                x2++;
+            }
+            return a+score(a>>(length+1-x1))+score(a&(1<<(length+1-x2)-1));
         }
         else {
-            return a+1+score(a>>(s.size()+1-count1(s,num/2+1,0)))+score(a%(1<<s.size()-count1(s,num/2+1,1)));
+            int x=count1(s,(num+1)/2);
+            return a+1+score(a>>(length+1-x))+score(a&(1<<(length-x)-1));
         }
     }
 }
@@ -65,10 +64,10 @@ int main()
 {
     int T;
     cin>>T;
-    vector <int> a(T);
-    for (int i=0;i<T;i++){
-        cin>>a[i];
-        cout<<score(a[i])<<endl;
+    while (T--){
+        int a;
+        cin>>a;
+        cout<<score(a)<<endl;
     }
     return 0;
 }
