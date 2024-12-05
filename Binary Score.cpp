@@ -38,7 +38,7 @@ int count1(vector <char> &s,int x)
             count++;
         }
     }
-    return i+1;
+    return --i;
 }
 int score(int a)
 {
@@ -49,14 +49,14 @@ int score(int a)
         int length=s.size();
         if (!(num%2)){
             int x1=count1(s,num/2),x2=x1;
-            while (s[x2]='0'){
+            do{
                 x2++;
-            }
-            return a+score(a>>(length+1-x1))+score(a&(1<<(length+1-x2)-1));
+            }while(s[x2]=='0');
+            return a+score(a>>(length-x1-1))+score(a&(1<<(length-x2)-1));
         }
         else {
             int x=count1(s,(num+1)/2);
-            return a+1+score(a>>(length+1-x))+score(a&(1<<(length-x)-1));
+            return a+1+score(a>>(length-x))+score(a&(1<<(length-x-1)-1));
         }
     }
 }
