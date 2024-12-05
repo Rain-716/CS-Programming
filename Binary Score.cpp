@@ -51,12 +51,14 @@ int score(int a)
             int x1=count1(s,num/2),x2=x1;
             do{
                 x2++;
-            }while(s[x2]=='0');
-            return a+score(a>>(length-x1-1))+score(a&(1<<(length-x2)-1));
+            }while(s[x2]=='0'&&(x2<length));
+            s.resize(0);
+            return a+score(a>>(length-x1-1))+score(a&((1<<(length-x2))-1));
         }
         else {
             int x=count1(s,(num+1)/2);
-            return a+1+score(a>>(length-x))+score(a&(1<<(length-x-1)-1));
+            s.resize(0);
+            return a+1+score(a>>(length-x))+score(a&((1<<(length-x-1))-1));
         }
     }
 }
@@ -68,6 +70,7 @@ int main()
         int a;
         cin>>a;
         cout<<score(a)<<endl;
+        s.resize(0);
     }
     return 0;
 }
