@@ -9,15 +9,13 @@ int main()
     {
         int m,n,count=0;
         cin>>m>>n;
-        for (int i=0;i<m;i++){
-            for (int j=0;j<n;j++){
+        for (int i=0;i<m*n;i++){
                 char t;
                 cin>>t;
                 if (t=='.'){
                     count++;
                 }
             }
-        }
         cout<<"case #"<<k++<<":"<<endl;
         cout<<count<<endl;
     }
